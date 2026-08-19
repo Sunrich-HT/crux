@@ -1,0 +1,19 @@
+{
+  "mode": "research",
+  "interaction_goal": "coach",
+  "mastery": 0.5,
+  "attempts": 0,
+  "has_artifact": false,
+  "assessment_lock": false,
+  "answer_authorized": false,
+  "evidence_status": "none",
+  "crux_status": "unknown",
+  "crux_kind": "causal",
+  "preference_known": true,
+  "question_rounds": 0,
+  "max_question_rounds": 2,
+  "stakes": "medium",
+  "reversibility": "costly",
+  "source_ids": []
+}
+

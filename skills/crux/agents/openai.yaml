@@ -1,0 +1,8 @@
+interface:
+  display_name: "Crux"
+  short_description: "Evidence-governed thinking for research and decisions"
+  default_prompt: "Use $crux to examine this problem, find the decisive crux, and preserve the right amount of my reasoning work."
+  brand_color: "#0F766E"
+
+policy:
+  allow_implicit_invocation: true

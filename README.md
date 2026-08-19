@@ -80,19 +80,27 @@ More copy-ready prompts and expected outputs are in [docs/examples.md](docs/exam
 
 ## A tested example
 
-Suppose two engineers are considering a six-week AI paper-reading product. Five researchers say it sounds useful, but there is no usage evidence.
+Suppose a paper makes this claim: **relevant retrieved documents cause the improvement in factual accuracy.**
 
-1. With only asserted interest, Crux computes an **R3 ceiling**: it cannot recommend the build and may ask one question.
-2. It asks for the observation most likely to change the decision: how many users bring a real paper and return for a second session after measurable time savings?
-3. A synthetic pilot fixture adds four first sessions, three returns, and a median 42 minutes saved. Crux then computes **R7**, allowing a conditional recommendation with explicit uncertainty, success thresholds, and a rollback condition.
+| No retrieval | Random documents | Relevant documents |
+| ---: | ---: | ---: |
+| 64% | 71% | 73% |
 
-The final audited recommendation is to run a 10-day narrow prototype, not commit immediately to the full build. The example is checked by executable code and CI, including its state transition and source IDs:
+**Learner:** "Relevant documents provide knowledge, so the rise from 64% to 73% proves that retrieved knowledge works."
+
+**Crux:** "If relevant knowledge caused most of those nine points, what result would you have expected from the random-document condition?"
+
+**Learner:** "Random documents should have stayed near 64%. They actually reach 71%, so relevant knowledge may not explain most of the gain."
+
+**Crux:** "Right. The table directly measures seven points from adding random documents, then only two more from relevant documents. It does not support attributing all nine points to relevant knowledge. Because no variance is reported, check next whether the 73%-versus-71% difference is stable."
+
+Crux first asks for a prediction that exposes the mismatch. Once the learner finds it, Crux separates measurement from inference and gives one next evidence check. The complete two-turn interaction is backed by typed states and audited plans:
 
 ```bash
-python scripts/verify_product_pilot.py
+python scripts/verify_paper_coaching.py
 ```
 
-See the [complete input, response, and expected output](examples/product-pilot/README.md). The observations are deliberately marked as a simulated test fixture, not presented as a real-world pilot.
+See the [complete paper-coaching example](examples/paper-coaching/README.md). Its miniature paper and results are explicitly synthetic; the separate [product-decision fixture](examples/product-pilot/README.md) remains available as a secondary example.
 
 ## How Crux works
 
@@ -159,7 +167,7 @@ The policy function never reads the user's free-form message. A classifier may p
 crux/
 ├── skills/crux/             # Installable agent skill and mode references
 ├── src/crux_supervisor/     # Deterministic disclosure policy and auditor
-├── examples/product-pilot/  # Reproducible two-turn decision fixture
+├── examples/                # Reproducible coaching and decision fixtures
 ├── evals/                   # Machine-checkable contract cases
 ├── tests/                   # Policy and audit invariants
 ├── scripts/                 # Example verification utilities

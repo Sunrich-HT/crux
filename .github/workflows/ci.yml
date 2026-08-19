@@ -28,3 +28,5 @@ jobs:
         run: crux eval evals/policy_cases.jsonl
       - name: Reproduce product-pilot example
         run: python scripts/verify_product_pilot.py
+      - name: Reproduce paper-coaching example
+        run: python scripts/verify_paper_coaching.py

@@ -2,7 +2,7 @@
 
 These examples show the shape of a useful request and the result Crux should converge toward. They are not fixed response templates.
 
-For an executable two-turn decision case, see the [tested product-pilot fixture](../examples/product-pilot/README.md) and run `python scripts/verify_product_pilot.py`.
+Start with the concrete [paper-coaching exchange](../examples/paper-coaching/README.md) and run `python scripts/verify_paper_coaching.py`. A separate [product-decision fixture](../examples/product-pilot/README.md) tests recommendation and rollback behavior.
 
 ## Paper deep-reading
 

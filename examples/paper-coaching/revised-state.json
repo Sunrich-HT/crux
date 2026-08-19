@@ -1,0 +1,15 @@
+{
+  "mode": "learn",
+  "interaction_goal": "coach",
+  "mastery": 0.7,
+  "attempts": 2,
+  "has_artifact": true,
+  "evidence_status": "sourced",
+  "crux_status": "resolved",
+  "crux_kind": "causal",
+  "question_rounds": 1,
+  "max_question_rounds": 2,
+  "source_ids": [
+    "table-1"
+  ]
+}

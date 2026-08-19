@@ -1,0 +1,10 @@
+{
+  "disclosure_level": 4,
+  "question_count": 0,
+  "citation_source_ids": [
+    "table-1"
+  ],
+  "has_verdict": false,
+  "has_action": true,
+  "states_uncertainty": true
+}

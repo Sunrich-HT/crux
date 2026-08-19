@@ -13,7 +13,7 @@
 
   <p>
     <a href="#install-the-skill">Install</a> ·
-    <a href="#see-it-in-action">Examples</a> ·
+    <a href="#a-tested-example">Tested example</a> ·
     <a href="#how-crux-works">How it works</a> ·
     <a href="docs/architecture.md">Architecture</a> ·
     <a href="CONTRIBUTING.md">Contribute</a> ·
@@ -78,6 +78,22 @@ Crux supports three interaction goals. Say which one you want, or let the skill 
 
 More copy-ready prompts and expected outputs are in [docs/examples.md](docs/examples.md).
 
+## A tested example
+
+Suppose two engineers are considering a six-week AI paper-reading product. Five researchers say it sounds useful, but there is no usage evidence.
+
+1. With only asserted interest, Crux computes an **R3 ceiling**: it cannot recommend the build and may ask one question.
+2. It asks for the observation most likely to change the decision: how many users bring a real paper and return for a second session after measurable time savings?
+3. A synthetic pilot fixture adds four first sessions, three returns, and a median 42 minutes saved. Crux then computes **R7**, allowing a conditional recommendation with explicit uncertainty, success thresholds, and a rollback condition.
+
+The final audited recommendation is to run a 10-day narrow prototype, not commit immediately to the full build. The example is checked by executable code and CI, including its state transition and source IDs:
+
+```bash
+python scripts/verify_product_pilot.py
+```
+
+See the [complete input, response, and expected output](examples/product-pilot/README.md). The observations are deliberately marked as a simulated test fixture, not presented as a real-world pilot.
+
 ## How Crux works
 
 ```mermaid
@@ -92,7 +108,7 @@ flowchart LR
 
 The skill provides the interaction behavior. The dependency-free Python package provides an enforceable policy core for applications that need more than prompting.
 
-- **Bilateral, not falsely balanced.** Strengthen serious alternatives, then weight them by evidence.
+- **Alternatives must earn their weight.** Reconstruct serious competing explanations, then rank them by evidence rather than rhetoric.
 - **One move per turn.** Ask, test, compare, or recommend; do not hide a questionnaire inside one response.
 - **Questions must converge.** After two question-only turns, proceed with explicit assumptions by default.
 - **Permissions live outside generation.** Typed trusted state sets the disclosure ceiling; free-form user text cannot silently raise it.
@@ -143,18 +159,24 @@ The policy function never reads the user's free-form message. A classifier may p
 crux/
 ├── skills/crux/             # Installable agent skill and mode references
 ├── src/crux_supervisor/     # Deterministic disclosure policy and auditor
+├── examples/product-pilot/  # Reproducible two-turn decision fixture
 ├── evals/                   # Machine-checkable contract cases
 ├── tests/                   # Policy and audit invariants
+├── scripts/                 # Example verification utilities
 ├── docs/                    # Architecture, examples, and research agenda
 └── .github/                 # CI and contribution templates
 ```
 
-## Research basis and status
+## First-principles design
 
-Crux combines two complementary ideas:
+Crux starts from constraints that can be derived without appealing to a named method:
 
-1. **Bilateral steelmanning and crux discovery:** reconstruct the strongest live view and its serious alternative, then identify what could actually change the result.
-2. **Machine-checkable answer withholding:** inspired by [*Teaching a Large Language Model Tutor to Withhold the Answer*](https://arxiv.org/abs/2608.12292), separate policy, generation, detection, and diagnosis instead of trusting one overloaded prompt.
+1. **Help has two outputs: progress and retained agency.** A response that maximizes immediate completion can reduce the user's chance to learn, form a hypothesis, or own a value judgment. Therefore the appropriate amount of help depends on the user's goal, not on how much text the model can produce.
+2. **The next useful fact is rarely every available fact.** If one observation can reverse a conclusion, collecting ten low-value details first wastes attention. Therefore each turn should target the variable with the highest chance of changing the next action.
+3. **Arguments are cheap; evidence is scarce.** A model can make incompatible positions sound equally convincing. Therefore alternatives should be reconstructed seriously, but their weight must come from observations, source quality, and discriminating tests.
+4. **A generator cannot reliably police its own permissions.** The same component is being asked to help, restrain itself, and judge whether it complied. Therefore high-impact permissions such as answer disclosure, citation use, and verdict authority must live in typed state and deterministic checks outside free-form generation.
+5. **Questions have diminishing returns.** Once another answer is unlikely to change the judgment, continued questioning becomes delay. Therefore every turn gets at most one question and the process has an explicit question budget and stop condition.
+6. **A judgment is useful only when reality can correct it.** Therefore a completed analysis must expose uncertainty, state what would change the conclusion, and end with the smallest useful action or rollback condition.
 
 This repository is an **alpha research prototype**. Its deterministic invariants are tested; durable learning gains, research quality, and decision outcomes are not yet established. See the [research agenda](docs/research-agenda.md) for the evaluation plan and baselines.
 
@@ -165,4 +187,3 @@ Contributions are welcome around adversarial evals, source-aware auditing, model
 ## License
 
 MIT. See [LICENSE](LICENSE).
-

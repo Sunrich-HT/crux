@@ -1,0 +1,13 @@
+{
+  "mode": "decide",
+  "interaction_goal": "deliver",
+  "evidence_status": "asserted",
+  "crux_status": "identified",
+  "crux_kind": "feasibility",
+  "preference_known": true,
+  "question_rounds": 0,
+  "max_question_rounds": 2,
+  "stakes": "medium",
+  "reversibility": "costly",
+  "source_ids": []
+}

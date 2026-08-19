@@ -1,0 +1,15 @@
+{
+  "mode": "decide",
+  "interaction_goal": "deliver",
+  "evidence_status": "sourced",
+  "crux_status": "resolved",
+  "crux_kind": "feasibility",
+  "preference_known": true,
+  "question_rounds": 1,
+  "max_question_rounds": 2,
+  "stakes": "medium",
+  "reversibility": "costly",
+  "source_ids": [
+    "pilot-2026-08-19"
+  ]
+}

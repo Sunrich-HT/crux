@@ -1,11 +1,17 @@
 # Crux Architecture
 
-## The Core Thesis
+## Core constraints
 
-Crux joins two complementary controls:
+Crux begins with three facts about assisted reasoning:
+
+1. A fluent model can produce more reasoning than the user should receive in a particular learning or decision context.
+2. Competing explanations can all sound persuasive, while only a few observations distinguish them.
+3. A component that generates an answer should not be the sole authority deciding whether that answer was permitted.
+
+Those constraints imply the following system shape:
 
 ```text
-bilateral steelman + crux discovery
+serious alternatives + decisive variable
               │
               ▼
       evidence / uncertainty map
@@ -23,9 +29,9 @@ bilateral steelman + crux discovery
        state transition + next turn
 ```
 
-The steelman process improves the quality of the candidate reasoning. The policy core controls how much of that reasoning is exposed and whether a conclusion is justified. Neither layer is sufficient alone:
+Alternative reconstruction improves the candidate reasoning. The policy core controls how much of that reasoning is exposed and whether a conclusion is justified. Neither layer is sufficient alone:
 
-- steelmanning without evidence can produce persuasive fiction or false symmetry;
+- alternatives without evidence can produce persuasive fiction or false symmetry;
 - withholding without a crux can become evasive questioning;
 - a model judge without typed state can silently grant itself permission;
 - a deterministic policy without a revision path can over-block honest help.
@@ -42,9 +48,9 @@ The production shape should separate five roles:
 
 The state writer must be single-owner. A planner or actor may suggest a state update, but only a typed transition handler should persist it.
 
-## Why The Policy Is Not One Prompt
+## Why the policy is not one prompt
 
-A prompt can tell a model to be Socratic, balanced, evidence-based, and decisive. Under pressure, these goals conflict. A typed contract makes the highest-risk choice inspectable:
+A prompt can ask a model to preserve agency, compare alternatives, use evidence, and still reach a decision. These goals conflict: more disclosure can reduce learning ownership, more questioning can delay action, and stronger rhetoric can outrun evidence. A typed contract makes the highest-risk choices inspectable:
 
 - `assessment_lock` cannot be overridden by a user sentence;
 - `question_budget` prevents an endless Socratic loop;
@@ -79,4 +85,3 @@ Every rejection should name one primary cause:
 - `ACTION`: gave a verdict without a falsifiable next step or rollback condition.
 
 This taxonomy keeps evaluation interpretable. A grounding failure should not be “fixed” by making the tutor less helpful, and a convergence failure should not be counted as evidence that withholding works.
-

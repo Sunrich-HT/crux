@@ -1,0 +1,10 @@
+{
+  "source_id": "pilot-2026-08-19",
+  "kind": "simulated_test_fixture",
+  "invited": 5,
+  "completed_first_session": 4,
+  "returned_with_second_paper": 3,
+  "median_minutes_saved": 42,
+  "asked_for_team_access": 2,
+  "note": "Synthetic observations for testing the Crux workflow; not evidence from a real commercial pilot."
+}

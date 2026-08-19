@@ -41,12 +41,14 @@ Alternative reconstruction improves the candidate reasoning. The policy core con
 The production shape should separate five roles:
 
 1. **State adapter:** reads the user turn, artifact, retrieval results, and external checks; emits only a closed typed state proposal.
-2. **Policy core:** pure code. Reads trusted state only and computes the disclosure ceiling, evidence rule, one-move budget, and stop condition.
+2. **Policy core:** pure code. Reads trusted state only and computes the disclosure ceiling, protected learner-work IDs, evidence rule, one-move budget, and stop condition.
 3. **Reasoning planner:** generates private candidates: strongest position, strongest alternative, crux queue, and possible next moves.
 4. **Actor:** writes the user-facing response under the contract.
 5. **Auditor:** checks the response plan and source IDs. Deterministic checks run first; model-based review is a second layer, not the source of truth.
 
 The state writer must be single-owner. A planner or actor may suggest a state update, but only a typed transition handler should persist it.
+
+The deterministic auditor checks declared structured fields; it does not infer semantic equivalence from arbitrary prose. Production enforcement therefore needs structured generation or an independent semantic reviewer that maps the draft back to `revealed_work_ids` before release. If the actor is allowed to label its own prose without review, protected-work IDs are inspectable policy metadata, not a complete security boundary.
 
 ## Why the policy is not one prompt
 
@@ -55,6 +57,7 @@ A prompt can ask a model to preserve agency, compare alternatives, use evidence,
 - `assessment_lock` cannot be overridden by a user sentence;
 - `question_budget` prevents an endless question loop;
 - `source_ids` define which citations are legal;
+- `protected_work_ids` name the exact derivation, observation, or judgment the actor must elicit without revealing;
 - `evidence_status` blocks factual verdicts without evidence;
 - `interaction_goal` distinguishes coaching from delivery.
 
@@ -64,7 +67,7 @@ The actor still needs a good prompt, but prompt quality no longer determines the
 
 ### Learn
 
-Preserve the learner's cognitive work. A concrete attempt raises the helpfulness floor; repeated failure can raise the scaffold. An active assessment lock wins over all other permissions.
+Preserve the learner's cognitive work. Protect the earliest unresolved operation in the chain: observation, transformation, interpretation, attribution, then extension. A concrete attempt raises the helpfulness floor; repeated failure can raise the scaffold. An active assessment lock wins over all other permissions.
 
 ### Research
 
@@ -79,6 +82,7 @@ Separate values, facts, forecasts, and constraints. Scale effort to stakes and r
 Every rejection should name one primary cause:
 
 - `DISCLOSURE`: exceeded the allowed level or revealed a hidden inference;
+- `OWNERSHIP`: revealed a protected work item, skipped it for a downstream exercise, or failed to elicit one target;
 - `GROUNDING`: cited an unavailable source or presented an unsupported fact;
 - `BALANCE`: weakened one side, created false symmetry, or ignored a third option;
 - `CONVERGENCE`: asked a low-value or extra question instead of progressing;

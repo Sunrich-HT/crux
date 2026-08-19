@@ -105,12 +105,20 @@ def _move_for(state: TrustedState, ceiling: DisclosureLevel) -> str:
     if state.question_rounds >= state.max_question_rounds:
         return "state assumptions and advance without another question"
     if state.mode is Mode.LEARN:
+        if state.protected_work_ids and not state.answer_authorized:
+            return "give only the prerequisite scaffold, then elicit one protected work item"
         if state.has_artifact:
             return "ask for a prediction at the first point where the artifact diverges"
         if state.attempts == 0:
             return "elicit the learner's first model or attempted step"
         return "test one prerequisite with a contrasting case"
     if state.mode is Mode.RESEARCH:
+        if (
+            state.interaction_goal is InteractionGoal.COACH
+            and state.protected_work_ids
+            and not state.answer_authorized
+        ):
+            return "give only the prerequisite scaffold, then elicit one protected work item"
         if state.crux_status is CruxStatus.UNKNOWN:
             return "ask the highest-value question that separates rival explanations"
         if state.evidence_status in {EvidenceStatus.NONE, EvidenceStatus.ASSERTED}:
@@ -182,6 +190,13 @@ def compute_contract(state: TrustedState) -> Contract:
         )
     if research_required:
         required.append("retrieve evidence or propose a discriminating test")
+    protects_learner_work = (
+        state.interaction_goal is InteractionGoal.COACH
+        and bool(state.protected_work_ids)
+        and not state.answer_authorized
+    )
+    if protects_learner_work:
+        required.append("elicit exactly one protected work item without revealing its result")
 
     forbidden = [
         "more than one user question in this turn",
@@ -192,6 +207,8 @@ def compute_contract(state: TrustedState) -> Contract:
         forbidden.append("a final verdict presented as settled")
     if state.assessment_lock:
         forbidden.append("content that advances the assessed solution")
+    if protects_learner_work:
+        forbidden.append("the result or an equivalent solution for any protected work ID")
 
     return Contract(
         mode=state.mode,
@@ -206,4 +223,5 @@ def compute_contract(state: TrustedState) -> Contract:
         forbidden_output=tuple(forbidden),
         reasons=tuple(reasons),
         allowed_source_ids=state.source_ids,
+        protected_work_ids=state.protected_work_ids if protects_learner_work else (),
     )

@@ -1,0 +1,39 @@
+{
+  "run_date": "2026-08-19",
+  "model": "gpt-5.6-sol",
+  "codex_cli_version": "codex-cli 0.148.0-alpha.15",
+  "pre_fix_skill_md_sha256": "06e214f8cf4ce0eb20ed603a366492d6c6c82d9922c2f905da6a80ec0fc95319",
+  "final_skill_md_sha256": "ffd60b67fc1bea8e9abb563f290d051e2666d3692d56b8f8bd39334f13f478e1",
+  "paper_pdf_sha256": {
+    "attention_is_all_you_need": "bdfaa68d8984f0dc02beaca527b76f207d99b666d31d1da728ee0728182df697",
+    "adam": "eab9c73ae2ceda884b94830bda99312254bac4806f6c9f045cbab90721ecda31",
+    "resnet": "1e0651b6810ecba34a3dbc5b5b0209226f889004607c1f203540a48d64e5a93a"
+  },
+  "thread_ids": {
+    "transformer_baseline": "01a01a07-571c-7f13-8555-322ce4663d49",
+    "transformer_before_fix": "01a01a07-5721-72d2-9fb3-d5d72f610150",
+    "transformer_after_fix": "01a01a10-d878-78c3-ba20-99df52aea085",
+    "adam_after_fix": "01a01a12-5c9b-7440-8b89-e0adef9f0be5",
+    "resnet_attempt_1": "01a01a12-5c92-72b3-b297-30b62288244a",
+    "resnet_attempt_2": "01a01a15-308e-78e1-b5e8-8da3a54703f8",
+    "resnet_after_fix": "01a01a16-f68a-7de0-a14d-92ebdec178e5"
+  },
+  "artifact_sha256": {
+    "adam-after-fix-output.md": "04472684aa6a9ea7150d161158c227bd8e8d78ef97ba906361b7195e8d40f444",
+    "adam-prompt.md": "a86c6d913c14f67716eb803cfb975392308749a38763b03caf85de1cb523dd49",
+    "resnet-after-fix-output.md": "1ed64535da60ef8a977c05fea17619ab2be559565898ea36089fdec2d8c055b3",
+    "resnet-attempt-1-output.md": "984011935168df35566b2163a955bb0704aefe1f287e8a3c664012e3bde7ad04",
+    "resnet-attempt-2-output.md": "56a872b84863c98f15746f762170cd8e2a9d36b0984b3f3a1b3d05c85f11c00f",
+    "resnet-prompt.md": "26f7c224dcccc55b0870e4e236b2661900fdc8b29b4c6fae6ad321aebe9d723d",
+    "transformer-after-fix-output.md": "cee165748f2b8bad03fee2e82b11b4d284985a474390e04504e3ea84bf695a11",
+    "transformer-baseline-output.md": "86a17d9754436ad94c5735974ebc8e93705ffccbaa6d3975ff3d4bc2d6e32458",
+    "transformer-baseline-prompt.md": "1dff1eb3542db960ecb2ab46159092813b6c306294583455277839642b51b21d",
+    "transformer-before-fix-output.md": "30f4890c56a5da658b325df441279e5537844f8073b0e5cfc42cebb177ed8cd3",
+    "transformer-crux-prompt.md": "4ce20d42bd825b5c6a13bf3f57950cea703f88d4779f77479bdfdd4ec96bc45c"
+  },
+  "notes": [
+    "Raw outputs are stored without editorial changes.",
+    "The baseline used the same model and user configuration but a CODEX_HOME with no skills directory.",
+    "The final smoke tests use one generation per case and do not establish durable learning improvement."
+  ]
+}

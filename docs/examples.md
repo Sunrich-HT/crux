@@ -2,7 +2,7 @@
 
 These examples show the shape of a useful request and the result Crux should converge toward. They are not fixed response templates.
 
-Start with the captured [Attention Is All You Need coaching run](../examples/attention-is-all-you-need-live/README.md). It includes the exact student prompts, unedited model outputs, source and runtime metadata, and integrity hashes. A separate [product-decision fixture](../examples/product-pilot/README.md) deterministically tests recommendation and rollback behavior.
+Start with the [v0.4.0 behavioral evaluation](../examples/behavioral-evaluation-v0.4.0/README.md). It preserves the clean baseline, pre-fix failure, iterative corrections, final outputs, and integrity hashes. The earlier [Attention Is All You Need run](../examples/attention-is-all-you-need-live/README.md) remains as historical evidence, and a separate [product-decision fixture](../examples/product-pilot/README.md) deterministically tests recommendation and rollback behavior.
 
 ## Paper deep-reading
 

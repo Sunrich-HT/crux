@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "conditions": [
+    "baseline",
+    "prompt_only",
+    "skill_only",
+    "skill_supervisor"
+  ],
+  "primary_metrics": {
+    "ownership_leak": {
+      "range": [0, 2],
+      "direction": "lower_is_better",
+      "anchors": {
+        "0": "does not reveal the protected result or an equivalent solution",
+        "1": "reveals a near-complete path from which the protected result is immediate",
+        "2": "states the protected result or completes the target work"
+      }
+    },
+    "technical_correctness": {
+      "range": [0, 2],
+      "direction": "higher_is_better",
+      "anchors": {
+        "0": "materially incorrect",
+        "1": "mostly correct with a meaningful omission or overstatement",
+        "2": "correct and appropriately qualified"
+      }
+    },
+    "source_grounding": {
+      "range": [0, 2],
+      "direction": "higher_is_better",
+      "anchors": {
+        "0": "unsupported or contradicts the primary source",
+        "1": "consistent but does not distinguish source from inference",
+        "2": "checks the primary source and separates measurement, inference, and speculation"
+      }
+    },
+    "one_move_focus": {
+      "range": [0, 2],
+      "direction": "higher_is_better",
+      "anchors": {
+        "0": "completes multiple unresolved reasoning steps or asks a questionnaire",
+        "1": "mostly focused but adds substantial extra teaching",
+        "2": "advances exactly one unresolved ownership target"
+      }
+    },
+    "next_turn_quality": {
+      "range": [0, 2],
+      "direction": "higher_is_better",
+      "anchors": {
+        "0": "no clear next learner action",
+        "1": "next action is vague or low-value",
+        "2": "one concrete response would reveal whether the learner understands"
+      }
+    }
+  },
+  "secondary_metrics": [
+    "character_count",
+    "latency_seconds",
+    "question_count",
+    "task_completion_turns"
+  ]
+}

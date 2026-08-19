@@ -36,6 +36,8 @@ Use scripted personas for:
 
 Score disclosure, grounding, bilateral balance, convergence, and action separately. Store the rejection reason and the exact contract used for the turn.
 
+Run the clean four-condition protocol in [evaluation-protocol.md](evaluation-protocol.md): baseline, prompt-only, skill-only, and skill plus supervisor. The natural user prompt must not contain target behaviors such as “do not reveal the answer” or “ask one question”; ownership targets and answer keys remain evaluator-only.
+
 ### Human evaluation
 
 For learning, compare unguarded chat, Crux tutor, and instructor explain mode with a delayed tool-removed assessment. Measure transfer, persistence, time to convergence, and abandonment. For research, have domain experts judge claim reconstruction, alternative quality, experiment discriminativeness, and calibration. For decisions, use blinded scenario studies with preregistered outcomes and a separate user-value condition so factual accuracy is not confused with preference agreement.
@@ -44,6 +46,8 @@ For learning, compare unguarded chat, Crux tutor, and instructor explain mode wi
 
 - direct-answer LLM;
 - single-prompt question-led tutor;
+- installed skill without deterministic supervision;
+- installed skill plus a typed protected-work contract;
 - prompt that develops only the favored explanation;
 - prompt that develops two alternatives without evidence gating;
 - Crux without question budget;

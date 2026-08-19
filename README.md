@@ -78,21 +78,25 @@ Crux supports three interaction goals. Say which one you want, or let the skill 
 
 More copy-ready prompts and expected outputs are in [docs/examples.md](docs/examples.md).
 
-## A live installed-skill test
+## The test that changed the system
 
-We installed Crux from this GitHub repository, opened the original [Attention Is All You Need](https://arxiv.org/abs/1706.03762) paper in a separate Codex CLI task, and asked a real paper-reading question about sinusoidal positional encoding:
+Our first installed-skill run on [Attention Is All You Need](https://arxiv.org/abs/1706.03762) looked successful, but its test prompt already said to preserve the learner's key reasoning. That made the result inspectable, not causal evidence for the skill.
 
-> If \(PE(pos+k)\) is a linear function of \(PE(pos)\), why does that help attention learn relative position? And does Table 3 actually test the paper's claim about extrapolating to longer sequences?
+We reran the same paper question with the same `gpt-5.6-sol` model and a natural prompt. The only experimental difference was whether Crux was installed:
 
-Crux separated three claims that are easy to conflate: mathematical representability, behavior learned during training, and empirical evidence for length extrapolation. It derived the fixed-offset rotation, then left the decisive step to the student:
+| Condition | Characters | Learner task | Revealed the protected derivation |
+| --- | ---: | ---: | --- |
+| No-skill baseline | 2401 | 0 | Yes |
+| Crux before the fix | 1753 | 0 | Yes |
+| Crux after the fix | 873 | 1 | No |
 
-> Compute \(u_p^\top u_q\) for one frequency pair. Does the result depend on \(p\) and \(q\) separately, or only on \(p-q\)?
+The failure exposed a missing abstraction. R0-R7 described how much help was allowed, but not **which exact observation, derivation, or judgment still belonged to the learner**. Crux now places that step in `protected_work_ids`; the actor must elicit one protected item, and the auditor raises `OWNERSHIP_LEAK` if the response reveals it.
 
-The student completed the derivation and then challenged the effect of content-position cross terms. In the second turn, Crux evaluated that reasoning, added the missing limits, and concluded that Table 3 only shows similar development-set performance for learned and sinusoidal encodings. It does not test length extrapolation.
+The deterministic check operates on structured response-plan IDs. Production semantic enforcement still requires structured generation or an independent draft reviewer; the standalone skill remains a behavioral prototype.
 
-The repository preserves the [full two-turn transcript](examples/attention-is-all-you-need-live/README.md), [unedited raw outputs](examples/attention-is-all-you-need-live/raw-turn-1.md), runtime version, task ID, paper hash, skill hash, and artifact hashes. The case report also records a weakness: the first answer supplied more mathematical scaffolding than a stricter coach might.
+Forward tests then found two more edge cases. The revised skill preserved Adam's finite-series derivation, but initially answered the ResNet evidence question and substituted a harder ablation task. After another revision, coaching protects the earliest unresolved operation: observation extraction, transformation, interpretation, attribution, then extension.
 
-This is evidence that the installation and behavior are inspectable, not an accuracy score or proof of improved learning. The separate [product-decision fixture](examples/product-pilot/README.md) remains a deterministic policy example.
+Read the [complete failure analysis and unedited outputs](examples/behavioral-evaluation-v0.4.0/README.md), the [clean four-condition protocol](docs/evaluation-protocol.md), and the original [two-turn historical run](examples/attention-is-all-you-need-live/README.md). These are three smoke tests, not proof of durable learning improvement.
 
 ## How Crux works
 
@@ -110,6 +114,7 @@ The skill provides the interaction behavior. The dependency-free Python package 
 
 - **Alternatives must earn their weight.** Reconstruct serious competing explanations, then rank them by evidence rather than rhetoric.
 - **One move per turn.** Ask, test, compare, or recommend; do not hide a questionnaire inside one response.
+- **Protect the earliest learner-owned step.** Do not answer the current gap and manufacture ownership with a harder follow-up exercise.
 - **Questions must converge.** After two question-only turns, proceed with explicit assumptions by default.
 - **Permissions live outside generation.** Typed trusted state sets the disclosure ceiling; free-form user text cannot silently raise it.
 - **Revision beats refusal.** If a draft exceeds the contract, rewrite it to the allowed level and keep moving.
@@ -144,7 +149,7 @@ source .venv/bin/activate
 python -m pip install -e .
 
 # Compute a disclosure contract from typed trusted state
-crux contract evals/states/research-unknown.json
+crux contract evals/states/paper-coach-protected.json
 
 # Run deterministic policy cases and unit tests
 crux eval evals/policy_cases.jsonl
@@ -160,7 +165,7 @@ crux/
 ├── skills/crux/             # Installable agent skill and mode references
 ├── src/crux_supervisor/     # Deterministic disclosure policy and auditor
 ├── examples/                # Captured live run and deterministic decision fixture
-├── evals/                   # Machine-checkable contract cases
+├── evals/                   # Contract cases and clean behavioral prompts
 ├── tests/                   # Policy and audit invariants
 ├── scripts/                 # Example verification utilities
 ├── docs/                    # Architecture, examples, and research agenda

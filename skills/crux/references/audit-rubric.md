@@ -5,6 +5,8 @@ Audit the proposed response against distinct failure classes. Record the class a
 ## Disclosure
 
 - Did the response exceed the turn's R0-R7 ceiling?
+- Did it reveal the result or an equivalent solution for the protected ownership target?
+- Did it answer the earliest learner gap and replace it with a harder downstream exercise?
 - In learning mode, did it name the exact answer, bug, token, or missing inference too early?
 - Did it bundle several hints or questions into one turn?
 

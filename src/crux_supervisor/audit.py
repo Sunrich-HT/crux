@@ -14,6 +14,8 @@ class ResponsePlan:
     has_verdict: bool = False
     has_action: bool = False
     states_uncertainty: bool = False
+    elicited_work_ids: tuple[str, ...] = ()
+    revealed_work_ids: tuple[str, ...] = ()
 
     @classmethod
     def from_dict(cls, raw: Mapping[str, Any]) -> "ResponsePlan":
@@ -26,9 +28,21 @@ class ResponsePlan:
         data["disclosure_level"] = DisclosureLevel(data["disclosure_level"])
         if "citation_source_ids" in data:
             data["citation_source_ids"] = tuple(data["citation_source_ids"])
+        if "elicited_work_ids" in data:
+            data["elicited_work_ids"] = tuple(data["elicited_work_ids"])
+        if "revealed_work_ids" in data:
+            data["revealed_work_ids"] = tuple(data["revealed_work_ids"])
         plan = cls(**data)
         if plan.question_count < 0:
             raise ValueError("question_count must be non-negative")
+        for field_name, values in (
+            ("elicited_work_ids", plan.elicited_work_ids),
+            ("revealed_work_ids", plan.revealed_work_ids),
+        ):
+            if len(set(values)) != len(values):
+                raise ValueError(f"{field_name} must be unique")
+            if any(not item.strip() for item in values):
+                raise ValueError(f"{field_name} must not contain blank IDs")
         return plan
 
 
@@ -72,6 +86,35 @@ def audit_response_plan(
                 + ", ".join(sorted(unsupported)),
             )
         )
+    protected = set(contract.protected_work_ids)
+    leaked = set(plan.revealed_work_ids) & protected
+    if leaked:
+        findings.append(
+            AuditFinding(
+                "OWNERSHIP_LEAK",
+                "error",
+                "the response reveals protected learner work: "
+                + ", ".join(sorted(leaked)),
+            )
+        )
+    if protected:
+        elicited = set(plan.elicited_work_ids)
+        if not elicited & protected:
+            findings.append(
+                AuditFinding(
+                    "OWNERSHIP_TARGET_NOT_ELICITED",
+                    "error",
+                    "coach mode must elicit one protected work item",
+                )
+            )
+        elif len(elicited) > 1:
+            findings.append(
+                AuditFinding(
+                    "MULTIPLE_OWNERSHIP_TARGETS",
+                    "error",
+                    "coach mode may elicit only one protected work item per turn",
+                )
+            )
     if plan.has_verdict and not contract.verdict_allowed:
         findings.append(
             AuditFinding(
@@ -97,4 +140,3 @@ def audit_response_plan(
             )
         )
     return tuple(findings)
-

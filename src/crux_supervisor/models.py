@@ -98,6 +98,7 @@ class TrustedState:
     stakes: Stakes = Stakes.MEDIUM
     reversibility: Reversibility = Reversibility.COSTLY
     source_ids: tuple[str, ...] = ()
+    protected_work_ids: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         if not 0.0 <= self.mastery <= 1.0:
@@ -108,6 +109,12 @@ class TrustedState:
             raise ValueError("max_question_rounds must be non-negative")
         if len(set(self.source_ids)) != len(self.source_ids):
             raise ValueError("source_ids must be unique")
+        if len(set(self.protected_work_ids)) != len(self.protected_work_ids):
+            raise ValueError("protected_work_ids must be unique")
+        if len(self.protected_work_ids) > 1:
+            raise ValueError("coach mode allows at most one protected work ID")
+        if any(not item.strip() for item in self.protected_work_ids):
+            raise ValueError("protected_work_ids must not contain blank IDs")
 
     @classmethod
     def from_dict(cls, raw: Mapping[str, Any]) -> "TrustedState":
@@ -132,6 +139,8 @@ class TrustedState:
                 data[key] = enum_type(data[key])
         if "source_ids" in data:
             data["source_ids"] = tuple(data["source_ids"])
+        if "protected_work_ids" in data:
+            data["protected_work_ids"] = tuple(data["protected_work_ids"])
         return cls(**data)
 
 
@@ -149,6 +158,7 @@ class Contract:
     forbidden_output: tuple[str, ...]
     reasons: tuple[str, ...]
     allowed_source_ids: tuple[str, ...]
+    protected_work_ids: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
         result = asdict(self)
@@ -156,4 +166,6 @@ class Contract:
         result["ceiling"] = int(self.ceiling)
         result["ceiling_name"] = self.ceiling.name
         result["ceiling_description"] = DISCLOSURE_LABELS[self.ceiling]
+        result["allowed_source_ids"] = list(self.allowed_source_ids)
+        result["protected_work_ids"] = list(self.protected_work_ids)
         return result

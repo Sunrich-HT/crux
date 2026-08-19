@@ -26,5 +26,7 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Policy evals
         run: crux eval evals/policy_cases.jsonl
+      - name: Validate behavioral eval protocol
+        run: python scripts/validate_behavioral_evals.py
       - name: Reproduce product-pilot example
         run: python scripts/verify_product_pilot.py

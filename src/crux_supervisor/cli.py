@@ -33,6 +33,7 @@ def _contract_from_dict(raw: dict[str, Any]) -> Contract:
         forbidden_output=tuple(raw["forbidden_output"]),
         reasons=tuple(raw["reasons"]),
         allowed_source_ids=tuple(raw["allowed_source_ids"]),
+        protected_work_ids=tuple(raw.get("protected_work_ids", ())),
     )
 
 
@@ -112,4 +113,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

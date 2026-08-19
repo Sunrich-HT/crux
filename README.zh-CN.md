@@ -69,21 +69,25 @@ npx skills add Sunrich-HT/crux --list
 
 更多可直接使用的请求见 [示例文档](docs/examples.md)。
 
-## 一个真实安装后跑出的案例
+## 一次改变系统的失败测试
 
-我们从这个 GitHub 仓库安装 Crux，在独立 Codex CLI 任务中读取经典论文 [Attention Is All You Need](https://arxiv.org/abs/1706.03762) 的原文，然后让研究生提出一个具体问题：
+第一次安装实测 [Attention Is All You Need](https://arxiv.org/abs/1706.03762) 看起来成功，但测试提示词本身已经写了“保留学生关键推理”。它证明运行真实发生，却不能证明改善来自 Skill。
 
-> 对固定偏移 \(k\)，\(PE(pos+k)\) 是 \(PE(pos)\) 的线性函数，为什么这有助于注意力学习相对位置？而且 Table 3 似乎根本没有直接测试更长序列上的外推，我的理解哪里对，哪里混在了一起？
+我们随后用同一个 `gpt-5.6-sol`、同一篇论文和同一个自然学生问题做干净 A/B，唯一差别是是否加载 Crux：
 
-Crux 没有把它改写成抽象的“找关键变量”，而是直接区分了三个容易混淆的命题：数学上的可表示性、训练后模型是否利用这种结构、长度外推是否得到实验验证。它给出固定偏移对应旋转的脚手架，然后把关键一步留给学生：
+| 条件 | 字符数 | 学生任务 | 是否泄露关键推导 |
+| --- | ---: | ---: | --- |
+| 无 Skill 基线 | 2401 | 0 | 是 |
+| 修复前 Crux | 1753 | 0 | 是 |
+| 修复后 Crux | 873 | 1 | 否 |
 
-> 计算同一频率下 \(u_p^\top u_q\)，并用三角恒等式化简。结果依赖 \(p,q\) 各自，还是只依赖 \(p-q\)？
+失败暴露出原系统缺少一个抽象：R0-R7 规定“最多帮助到多深”，却没有规定“哪一项观察、推导或判断仍属于学生”。新版增加 `protected_work_ids`：Actor 必须要求学生完成一个受保护项；如果响应计划同时揭示它，Auditor 直接报 `OWNERSHIP_LEAK`。
 
-学生第二轮算出 \(\cos(\omega(p-q))\)，并进一步指出真实注意力还包含内容与位置的交叉项。Crux 随后检查这条推理、补充方向和投影矩阵的限制，并明确指出：Table 3 只支持 learned embedding 与 sinusoid 在开发集上的结果接近，不支持“已经验证长度外推”。
+确定性检查作用于结构化响应计划 ID。真正的语义强制仍需要结构化生成或独立草稿审查；单独安装的 Skill 仍是行为原型。
 
-仓库保留了[完整两轮实测记录](examples/attention-is-all-you-need-live/README.zh-CN.md)、[第一轮原样回答](examples/attention-is-all-you-need-live/raw-turn-1.md)、[第二轮原样回答](examples/attention-is-all-you-need-live/raw-turn-2.md)，以及 CLI 版本、任务 ID、论文 PDF 哈希、Skill 哈希和所有输入输出哈希。
+后续未见任务又发现两个边界。新版成功保留了 Adam 的有限等比级数推导，但第一次 ResNet 测试仍然讲完证据解释，再另造更难的 ablation 题。最终规则改为保护推理链中最早未完成的一步：观察提取、变换或推导、解释、因果归因、扩展实验。
 
-这不是“准确率”测试：两轮对话没有盲评标注者，不能据此声称提升了多少学习效果。它能证明的是安装和运行真实发生、来源与输出可审计。实测也暴露了不足：第一轮已经给出二维旋转矩阵，对更严格的辅导来说脚手架偏多。[产品决策案例](examples/product-pilot/README.zh-CN.md)继续作为确定性策略夹具保留。
+完整过程见[失败分析与所有原样输出](examples/behavioral-evaluation-v0.4.0/README.zh-CN.md)，正式测试方法见[四条件评测协议](docs/evaluation-protocol.md)，第一次[历史运行记录](examples/attention-is-all-you-need-live/README.zh-CN.md)仍然保留。这三项只是 smoke test，不是长期学习效果证明。
 
 ## Crux 如何工作
 
@@ -106,6 +110,7 @@ flowchart LR
 
 - **替代解释必须靠证据取得权重。** 认真重建可能的竞争解释，再按观察与来源质量排序，不能按文采制造势均力敌。
 - **一轮只做一个关键动作。** 追问、查证、比较或建议，不把问卷塞进一次回复。
+- **保护最早的学生所有权步骤。** 不能替学生做完当前问题，再用更难的新问题伪装成辅导。
 - **必须收敛。** 默认连续两轮只提问后，就应带着显式假设继续推进。
 - **权限与生成分离。** 自由文本不能直接提高答案披露等级。
 - **优先修改，不轻易拒绝。** 输出越界时，降到允许的层级后继续帮助。
@@ -121,7 +126,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e .
 
-crux contract evals/states/research-unknown.json
+crux contract evals/states/paper-coach-protected.json
 crux eval evals/policy_cases.jsonl
 python -m unittest discover -s tests -v
 ```

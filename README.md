@@ -13,7 +13,8 @@
 
   <p>
     <a href="#install-the-skill">Install</a> ·
-    <a href="#a-tested-example">Tested example</a> ·
+    <a href="#use-it">Use it</a> ·
+    <a href="#the-test-that-changed-the-system">Tested behavior</a> ·
     <a href="#how-crux-works">How it works</a> ·
     <a href="docs/architecture.md">Architecture</a> ·
     <a href="CONTRIBUTING.md">Contribute</a> ·
@@ -42,12 +43,31 @@ Install Crux globally for Codex:
 npx skills add Sunrich-HT/crux --global --agent codex --skill crux --yes --copy
 ```
 
-Then ask naturally, or invoke it explicitly:
+Start a new Codex task after installation. Skills use a `$` mention, not a slash command: type `$` and select `crux`, or begin the request with `$crux`.
+
+## Use it
+
+The shortest reliable form is:
 
 ```text
-$crux Deep-read this paper. Separate the authors' measurements from their inferences,
-find the strongest alternative explanation, and propose the cheapest replication.
+$crux
+
+Use coach mode.
+I am reading the attached paper. My current understanding is: ...
+What I still cannot explain is: ...
 ```
+
+`$crux` explicitly invokes the skill; `/crux` does not. You do not need to add “please use this skill.” Crux may also be selected automatically for matching requests, but explicit invocation is easier to verify and reproduce.
+
+Choose the interaction goal deliberately:
+
+| Goal | Use it when | Copy-ready opening |
+| --- | --- | --- |
+| `coach` | You want to retain the key reasoning step | `$crux Use coach mode. Here is my current interpretation: ...` |
+| `collaborate` | You want to build the analysis together | `$crux Use collaborate mode. My hypothesis and current evidence are: ...` |
+| `deliver` | You want a finished review or recommendation | `$crux Use deliver mode. Give me a complete evidence-based judgment on: ...` |
+
+See the [full usage guide](docs/usage.md) for paper reading, research design, personal decisions, business decisions, and follow-up turns.
 
 Browse before installing:
 
@@ -65,18 +85,6 @@ cp -R crux/skills/crux ~/.agents/skills/crux
 ```
 
 </details>
-
-## See it in action
-
-Crux supports three interaction goals. Say which one you want, or let the skill infer it.
-
-| Goal | What Crux preserves | Example request |
-| --- | --- | --- |
-| `coach` | Your synthesis and hypothesis work | "Do not summarize yet. Help me test whether I understood the mechanism." |
-| `collaborate` | Shared ownership, with assumptions made visible | "Build the strongest case for and against this research direction with me." |
-| `deliver` | Nothing artificial; produce the requested result | "Give me a full paper review and a go/no-go replication decision." |
-
-More copy-ready prompts and expected outputs are in [docs/examples.md](docs/examples.md).
 
 ## The test that changed the system
 

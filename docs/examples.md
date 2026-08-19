@@ -4,14 +4,17 @@ These examples show the shape of a useful request and the result Crux should con
 
 Start with the [v0.4.0 behavioral evaluation](../examples/behavioral-evaluation-v0.4.0/README.md). It preserves the clean baseline, pre-fix failure, iterative corrections, final outputs, and integrity hashes. The earlier [Attention Is All You Need run](../examples/attention-is-all-you-need-live/README.md) remains as historical evidence, and a separate [product-decision fixture](../examples/product-pilot/README.md) deterministically tests recommendation and rollback behavior.
 
+For installation, `$crux` invocation, mode selection, and copy-ready user requests, start with the [usage guide](usage.md) or [中文使用指南](usage.zh-CN.md).
+
 ## Paper deep-reading
 
 ### Coach my understanding
 
 ```text
-$crux Use coach mode. I think the paper's main contribution is the training objective.
-Do not summarize the whole paper yet. Ask the single question that best tests whether
-I understand what the objective adds over the strongest baseline.
+$crux Use coach mode. Work from the attached paper's primary text.
+I think the paper's main contribution is the training objective because: ...
+What I still cannot explain is how it differs from the strongest baseline. Check my
+current reasoning and continue coaching me.
 ```
 
 Expected shape: one discriminating question, followed in later turns by a claim-evidence map and a correction only where the user's reconstruction fails.

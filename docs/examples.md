@@ -2,7 +2,7 @@
 
 These examples show the shape of a useful request and the result Crux should converge toward. They are not fixed response templates.
 
-Start with the concrete [paper-coaching exchange](../examples/paper-coaching/README.md) and run `python scripts/verify_paper_coaching.py`. A separate [product-decision fixture](../examples/product-pilot/README.md) tests recommendation and rollback behavior.
+Start with the captured [Attention Is All You Need coaching run](../examples/attention-is-all-you-need-live/README.md). It includes the exact student prompts, unedited model outputs, source and runtime metadata, and integrity hashes. A separate [product-decision fixture](../examples/product-pilot/README.md) deterministically tests recommendation and rollback behavior.
 
 ## Paper deep-reading
 

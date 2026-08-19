@@ -78,29 +78,21 @@ Crux supports three interaction goals. Say which one you want, or let the skill 
 
 More copy-ready prompts and expected outputs are in [docs/examples.md](docs/examples.md).
 
-## A tested example
+## A live installed-skill test
 
-Suppose a paper makes this claim: **relevant retrieved documents cause the improvement in factual accuracy.**
+We installed Crux from this GitHub repository, opened the original [Attention Is All You Need](https://arxiv.org/abs/1706.03762) paper in a separate Codex CLI task, and asked a real paper-reading question about sinusoidal positional encoding:
 
-| No retrieval | Random documents | Relevant documents |
-| ---: | ---: | ---: |
-| 64% | 71% | 73% |
+> If \(PE(pos+k)\) is a linear function of \(PE(pos)\), why does that help attention learn relative position? And does Table 3 actually test the paper's claim about extrapolating to longer sequences?
 
-**Learner:** "Relevant documents provide knowledge, so the rise from 64% to 73% proves that retrieved knowledge works."
+Crux separated three claims that are easy to conflate: mathematical representability, behavior learned during training, and empirical evidence for length extrapolation. It derived the fixed-offset rotation, then left the decisive step to the student:
 
-**Crux:** "If relevant knowledge caused most of those nine points, what result would you have expected from the random-document condition?"
+> Compute \(u_p^\top u_q\) for one frequency pair. Does the result depend on \(p\) and \(q\) separately, or only on \(p-q\)?
 
-**Learner:** "Random documents should have stayed near 64%. They actually reach 71%, so relevant knowledge may not explain most of the gain."
+The student completed the derivation and then challenged the effect of content-position cross terms. In the second turn, Crux evaluated that reasoning, added the missing limits, and concluded that Table 3 only shows similar development-set performance for learned and sinusoidal encodings. It does not test length extrapolation.
 
-**Crux:** "Right. The table directly measures seven points from adding random documents, then only two more from relevant documents. It does not support attributing all nine points to relevant knowledge. Because no variance is reported, check next whether the 73%-versus-71% difference is stable."
+The repository preserves the [full two-turn transcript](examples/attention-is-all-you-need-live/README.md), [unedited raw outputs](examples/attention-is-all-you-need-live/raw-turn-1.md), runtime version, task ID, paper hash, skill hash, and artifact hashes. The case report also records a weakness: the first answer supplied more mathematical scaffolding than a stricter coach might.
 
-Crux first asks for a prediction that exposes the mismatch. Once the learner finds it, Crux separates measurement from inference and gives one next evidence check. The complete two-turn interaction is backed by typed states and audited plans:
-
-```bash
-python scripts/verify_paper_coaching.py
-```
-
-See the [complete paper-coaching example](examples/paper-coaching/README.md). Its miniature paper and results are explicitly synthetic; the separate [product-decision fixture](examples/product-pilot/README.md) remains available as a secondary example.
+This is evidence that the installation and behavior are inspectable, not an accuracy score or proof of improved learning. The separate [product-decision fixture](examples/product-pilot/README.md) remains a deterministic policy example.
 
 ## How Crux works
 
@@ -167,7 +159,7 @@ The policy function never reads the user's free-form message. A classifier may p
 crux/
 ├── skills/crux/             # Installable agent skill and mode references
 ├── src/crux_supervisor/     # Deterministic disclosure policy and auditor
-├── examples/                # Reproducible coaching and decision fixtures
+├── examples/                # Captured live run and deterministic decision fixture
 ├── evals/                   # Machine-checkable contract cases
 ├── tests/                   # Policy and audit invariants
 ├── scripts/                 # Example verification utilities

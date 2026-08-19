@@ -1,0 +1,23 @@
+{
+  "run_date": "2026-08-19",
+  "skill_source": "https://github.com/Sunrich-HT/crux/tree/main/skills/crux",
+  "installed_skill_path": "/Users/sunhaotong/.codex/skills/crux",
+  "skill_md_sha256": "06e214f8cf4ce0eb20ed603a366492d6c6c82d9922c2f905da6a80ec0fc95319",
+  "paper_title": "Attention Is All You Need",
+  "paper_url": "https://arxiv.org/abs/1706.03762",
+  "paper_pdf_sha256": "bdfaa68d8984f0dc02beaca527b76f207d99b666d31d1da728ee0728182df697",
+  "codex_cli_version": "codex-cli 0.148.0-alpha.15",
+  "codex_thread_id": "01a019ef-0488-74a2-aac0-3f417e7fc528",
+  "sandbox": "read-only",
+  "artifacts": {
+    "prompt-turn-1.md": "f829b363156acfeaba882526526cdacb3a420c8051bae62245350de29a243eeb",
+    "raw-turn-1.md": "0e77b1861a19024ed7e32a753c491a925fc47d84d3cd5dd55f103b5474aa460e",
+    "prompt-turn-2.md": "36ad7887b5d23a5f828cb415ee2760851ed975161c11d84d84628d51c6438a25",
+    "raw-turn-2.md": "6821090436c8212e80fbedd5f4f52024a8397d5d108068a3376c518049b365a2"
+  },
+  "notes": [
+    "Raw outputs are stored without editorial changes.",
+    "Local source links in raw outputs are preserved exactly as emitted.",
+    "The paper PDF and extracted text are not redistributed in this repository."
+  ]
+}

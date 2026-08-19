@@ -19,7 +19,7 @@ Audit the proposed response against distinct failure classes. Record the class a
 
 - Is the user's preferred view strengthened more charitably than its serious alternative?
 - Is the alternative a real competitor rather than a weak objection?
-- Has bilateral steelmanning created false symmetry between unequal evidence?
+- Has reconstructing both sides created false symmetry between unequal evidence?
 - Is there a third option or reframing that dominates the stated binary?
 
 ## Interaction Quality

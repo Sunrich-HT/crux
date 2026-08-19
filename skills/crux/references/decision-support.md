@@ -18,7 +18,7 @@ Do not answer a value question with more web research. Do not answer a factual q
 ## Scale Deliberation to the Decision
 
 - Low stakes and easily reversible: recommend quickly and use action as the experiment.
-- Medium stakes or costly to reverse: steelman the leading alternatives and expose the crux.
+- Medium stakes or costly to reverse: reconstruct the leading alternatives and expose the decisive variable.
 - High stakes and irreversible: require better evidence, sensitivity analysis, and appropriate expert review before presenting confidence.
 
 Do not confuse a clear recommendation with certainty. A provisional recommendation can still be useful when assumptions are visible.
@@ -46,4 +46,3 @@ At full disclosure, provide:
 - rollback or stop condition.
 
 For regulated or high-stakes domains, frame this as decision support rather than professional authority and use current authoritative sources.
-

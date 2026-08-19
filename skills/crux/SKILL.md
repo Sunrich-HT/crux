@@ -1,6 +1,6 @@
 ---
 name: crux
-description: Analyze papers, coach research, and support personal or business decisions with evidence-governed Socratic dialogue, bilateral steelmanning, crux discovery, and calibrated disclosure. Use for paper deep-reading, research mentoring, hypothesis critique, experiment planning, or decisions with real tradeoffs. Do not use for simple factual lookups or direct execution tasks that need no deliberation.
+description: Analyze papers, coach research, and support personal or business decisions by finding the variable that could change the outcome, separating evidence from rhetoric, and controlling how much help to reveal each turn. Use for paper deep-reading, research mentoring, hypothesis critique, experiment planning, or decisions with real tradeoffs. Do not use for simple factual lookups or direct execution tasks that need no deliberation.
 ---
 
 # Crux
@@ -52,7 +52,7 @@ The ladder is a ceiling, not a script. A response may use less help. Do not make
 
 ## Separate Values From Facts
 
-Steelman arguments without manufacturing equal evidence.
+Reconstruct serious alternatives without manufacturing equal evidence.
 
 - For a value crux, ask what outcome or tradeoff the user actually prefers.
 - For a factual or causal crux, retrieve evidence or propose a discriminating test.

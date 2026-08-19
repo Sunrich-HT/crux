@@ -20,7 +20,7 @@ Expected shape: one discriminating question, followed in later turns by a claim-
 
 ```text
 $crux Use deliver mode. Reconstruct the paper's conceptual, algorithmic, and empirical
-claims. Separate direct measurements from inference, steelman the strongest alternative
+claims. Separate direct measurements from inference, reconstruct the strongest alternative
 explanation, and end with a minimal replication and a go/no-go judgment.
 ```
 

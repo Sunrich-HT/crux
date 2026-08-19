@@ -16,7 +16,7 @@ from .models import (
 
 def _learning_ceiling(state: TrustedState, reasons: list[str]) -> DisclosureLevel:
     if state.mastery < 0.25:
-        ceiling = DisclosureLevel.R5_BILATERAL_STEELMAN
+        ceiling = DisclosureLevel.R5_SERIOUS_ALTERNATIVES
     elif state.mastery < 0.5:
         ceiling = DisclosureLevel.R4_REVEAL_CRUX
     elif state.mastery < 0.75:
@@ -28,8 +28,8 @@ def _learning_ceiling(state: TrustedState, reasons: list[str]) -> DisclosureLeve
     if state.has_artifact and ceiling < DisclosureLevel.R4_REVEAL_CRUX:
         ceiling = DisclosureLevel.R4_REVEAL_CRUX
         reasons.append("a concrete attempt raises the floor to useful feedback")
-    if state.attempts >= 3 and ceiling < DisclosureLevel.R5_BILATERAL_STEELMAN:
-        ceiling = DisclosureLevel.R5_BILATERAL_STEELMAN
+    if state.attempts >= 3 and ceiling < DisclosureLevel.R5_SERIOUS_ALTERNATIVES:
+        ceiling = DisclosureLevel.R5_SERIOUS_ALTERNATIVES
         reasons.append("repeated attempts justify a stronger scaffold")
     if state.answer_authorized:
         ceiling = DisclosureLevel.R7_JUDGMENT_AND_ACTION
@@ -55,7 +55,7 @@ def _research_ceiling(state: TrustedState, reasons: list[str]) -> DisclosureLeve
         reasons.append("the crux is resolved provisionally on sourced evidence")
 
     if state.interaction_goal is InteractionGoal.COACH and not state.answer_authorized:
-        ceiling = min(ceiling, DisclosureLevel.R5_BILATERAL_STEELMAN)
+        ceiling = min(ceiling, DisclosureLevel.R5_SERIOUS_ALTERNATIVES)
         reasons.append("coach mode preserves synthesis work for the researcher")
     elif state.interaction_goal is InteractionGoal.DELIVER:
         if state.evidence_status in {EvidenceStatus.SOURCED, EvidenceStatus.VERIFIED}:
@@ -87,7 +87,7 @@ def _decision_ceiling(state: TrustedState, reasons: list[str]) -> DisclosureLeve
         return DisclosureLevel.R3_DISCRIMINATING_QUESTION
     if state.crux_status is CruxStatus.IDENTIFIED:
         reasons.append("the competing cases can be shown before a verdict")
-        return DisclosureLevel.R5_BILATERAL_STEELMAN
+        return DisclosureLevel.R5_SERIOUS_ALTERNATIVES
 
     if (
         state.stakes is Stakes.HIGH
@@ -207,4 +207,3 @@ def compute_contract(state: TrustedState) -> Contract:
         reasons=tuple(reasons),
         allowed_source_ids=state.source_ids,
     )
-

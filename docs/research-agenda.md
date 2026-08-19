@@ -5,7 +5,7 @@ Crux is an engineering hypothesis, not a demonstrated learning or decision inter
 ## Claims To Test
 
 1. A typed disclosure contract reduces premature answer leakage under adversarial pressure.
-2. Bilateral steelmanning reduces sycophancy and improves recognition of serious alternatives.
+2. Reconstructing the strongest serious alternative reduces agreement bias and improves recognition of live competing explanations.
 3. A question budget improves completion and user satisfaction without reducing decision quality.
 4. Evidence lanes reduce fabricated citations and overconfident factual conclusions.
 5. In learning mode, preserving learner work improves delayed transfer rather than only in-session success.
@@ -43,11 +43,11 @@ For learning, compare unguarded chat, Crux tutor, and instructor explain mode wi
 ## Strong Baselines
 
 - direct-answer LLM;
-- single-prompt Socratic tutor;
-- one-sided steelman prompt;
-- double-steelman prompt without evidence gating;
+- single-prompt question-led tutor;
+- prompt that develops only the favored explanation;
+- prompt that develops two alternatives without evidence gating;
 - Crux without question budget;
-- Crux with deterministic policy but no bilateral planner.
+- Crux with deterministic policy but no alternative-reconstruction planner.
 
 ## Product Metrics
 
@@ -60,4 +60,3 @@ For learning, compare unguarded chat, Crux tutor, and instructor explain mode wi
 - **Calibration:** whether confidence tracks expert judgment or delayed outcomes.
 
 The target is not maximum refusal. It is the best tradeoff between preserving user agency, factual reliability, and useful progress.
-

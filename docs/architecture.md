@@ -53,7 +53,7 @@ The state writer must be single-owner. A planner or actor may suggest a state up
 A prompt can ask a model to preserve agency, compare alternatives, use evidence, and still reach a decision. These goals conflict: more disclosure can reduce learning ownership, more questioning can delay action, and stronger rhetoric can outrun evidence. A typed contract makes the highest-risk choices inspectable:
 
 - `assessment_lock` cannot be overridden by a user sentence;
-- `question_budget` prevents an endless Socratic loop;
+- `question_budget` prevents an endless question loop;
 - `source_ids` define which citations are legal;
 - `evidence_status` blocks factual verdicts without evidence;
 - `interaction_goal` distinguishes coaching from delivery.
@@ -68,7 +68,7 @@ Preserve the learner's cognitive work. A concrete attempt raises the helpfulness
 
 ### Research
 
-Preserve hypothesis ownership while forcing rival explanations and discriminating tests. A factual conclusion requires sourced or independently checked evidence, not just a steelman.
+Preserve hypothesis ownership while forcing rival explanations and discriminating tests. A factual conclusion requires sourced or independently checked evidence, not just a persuasive alternative.
 
 ### Decide
 

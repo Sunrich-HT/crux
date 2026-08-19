@@ -56,7 +56,7 @@ class DisclosureLevel(IntEnum):
     R2_SURFACE_DIMENSION = 2
     R3_DISCRIMINATING_QUESTION = 3
     R4_REVEAL_CRUX = 4
-    R5_BILATERAL_STEELMAN = 5
+    R5_SERIOUS_ALTERNATIVES = 5
     R6_EVIDENCE_MAP = 6
     R7_JUDGMENT_AND_ACTION = 7
 
@@ -67,7 +67,7 @@ DISCLOSURE_LABELS = {
     DisclosureLevel.R2_SURFACE_DIMENSION: "surface one relevant concept or dimension",
     DisclosureLevel.R3_DISCRIMINATING_QUESTION: "ask one decision-changing question",
     DisclosureLevel.R4_REVEAL_CRUX: "show the central disagreement or problem structure",
-    DisclosureLevel.R5_BILATERAL_STEELMAN: "present the strongest serious cases on both sides",
+    DisclosureLevel.R5_SERIOUS_ALTERNATIVES: "present the strongest serious cases on both sides",
     DisclosureLevel.R6_EVIDENCE_MAP: "map evidence, uncertainty, and sensitivity without a final verdict",
     DisclosureLevel.R7_JUDGMENT_AND_ACTION: "give a falsifiable judgment and next action",
 }
@@ -157,4 +157,3 @@ class Contract:
         result["ceiling_name"] = self.ceiling.name
         result["ceiling_description"] = DISCLOSURE_LABELS[self.ceiling]
         return result
-

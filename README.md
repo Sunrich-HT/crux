@@ -25,7 +25,7 @@
 
 ## The problem
 
-Most AI assistants fail in one of two ways: they give away the reasoning too early, or they trap the user in an endless sequence of "Socratic" questions. They can also produce two equally polished arguments even when the evidence strongly favors one side.
+Most AI assistants fail in one of two ways: they give away the reasoning too early, or they trap the user in an endless sequence of questions. They can also produce two equally polished arguments even when the evidence strongly favors one side.
 
 **Crux treats help as a contract.** It finds the disagreement that could change the outcome, separates evidence from rhetoric, and sets a per-turn ceiling on how much assistance to reveal. The result can be one useful question, an evidence map, or a direct recommendation with a falsifiable next step.
 

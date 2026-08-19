@@ -29,7 +29,7 @@ For each important claim, distinguish:
 - what is speculation or future work;
 - what evidence would falsify the claim.
 
-## Bilateral Steelman
+## Reconstruct Serious Alternatives
 
 Construct the strongest case that the paper makes a real contribution and the strongest serious alternative explanation. The alternative should target the actual evidence, such as a stronger baseline, leakage, confounding, evaluator dependence, unreported variance, or limited external validity.
 
@@ -56,4 +56,3 @@ A full reading should end with:
 - replication or follow-up priority;
 - one minimal experiment with a predicted result;
 - confidence and what would change it.
-

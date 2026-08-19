@@ -1,0 +1,33 @@
+name: Proposal
+description: Propose a new mode, policy rule, evaluator, integration, or research study.
+title: "[Proposal]: "
+labels: [proposal]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user or evaluation failure is not handled today?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or example
+      description: Provide a concrete case, result, or source that motivates the change.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed change
+      description: Describe the smallest implementation that could test the idea.
+    validations:
+      required: true
+  - type: textarea
+    id: evaluation
+    attributes:
+      label: Evaluation plan
+      description: What would count as success, failure, or a reason to revert?
+    validations:
+      required: true

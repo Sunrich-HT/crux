@@ -19,9 +19,14 @@ classifiers = [
 ]
 dependencies = []
 
+[project.urls]
+Homepage = "https://github.com/Sunrich-HT/crux"
+Documentation = "https://github.com/Sunrich-HT/crux#readme"
+Repository = "https://github.com/Sunrich-HT/crux.git"
+Issues = "https://github.com/Sunrich-HT/crux/issues"
+
 [project.scripts]
 crux = "crux_supervisor.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/crux_supervisor"]
-

@@ -1,0 +1,48 @@
+name: Bug report
+description: Report a reproducible policy, skill, CLI, or documentation problem.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping make Crux more reliable.
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Observed behavior
+      description: What happened, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproduction
+      description: Include the command, trusted state, prompt, or smallest relevant artifact.
+      render: shell
+    validations:
+      required: true
+  - type: dropdown
+    id: failure-class
+    attributes:
+      label: Likely failure class
+      options:
+        - Disclosure
+        - Grounding
+        - Balance
+        - Convergence
+        - Action
+        - Installation or CLI
+        - Documentation
+        - Unknown
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: v0.1.0 or commit SHA
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Agent, model, operating system, and Python version when relevant.

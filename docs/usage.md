@@ -8,7 +8,7 @@ After global installation, start a new Codex task. Type `$` and select `crux`, o
 $crux
 ```
 
-Use `$crux`, not `/crux`. The mention already invokes the skill, so “please use this skill” is unnecessary. Automatic selection is enabled, but explicit invocation is preferable for first use, evaluation, and important work.
+Use `$crux`, not `/crux`. The mention already invokes the skill, so “please use this skill” is unnecessary. Crux is explicit-only and is not loaded in conversations that do not include the `$crux` mention.
 
 ## Paper coaching
 

@@ -1,6 +1,11 @@
 ---
 name: crux
-description: Analyze papers, coach research, and support personal or business decisions by finding the variable that could change the outcome, separating evidence from rhetoric, and controlling how much help to reveal each turn. Use for paper deep-reading, research mentoring, hypothesis critique, experiment planning, or decisions with real tradeoffs. Do not use for simple factual lookups or direct execution tasks that need no deliberation.
+description: >-
+  Invoke only when the user explicitly mentions $crux. When invoked, analyze
+  papers, coach research, or support consequential decisions by finding the
+  variable that could change the outcome, separating evidence from rhetoric,
+  and controlling how much help to reveal. Do not activate for ordinary paper,
+  research, or decision requests that do not mention $crux.
 ---
 
 # Crux

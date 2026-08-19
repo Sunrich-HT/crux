@@ -43,7 +43,7 @@ Install Crux globally for Codex:
 npx skills add Sunrich-HT/crux --global --agent codex --skill crux --yes --copy
 ```
 
-Start a new Codex task after installation. Skills use a `$` mention, not a slash command: type `$` and select `crux`, or begin the request with `$crux`.
+Start a new Codex task after installation. Crux is explicit-only: installation does not change ordinary conversations. Type `$` and select `crux`, or begin the request with `$crux`, when you want it active.
 
 ## Use it
 
@@ -57,7 +57,7 @@ I am reading the attached paper. My current understanding is: ...
 What I still cannot explain is: ...
 ```
 
-`$crux` explicitly invokes the skill; `/crux` does not. You do not need to add “please use this skill.” Crux may also be selected automatically for matching requests, but explicit invocation is easier to verify and reproduce.
+`$crux` explicitly invokes the skill; `/crux` does not. You do not need to add “please use this skill.” Without the `$crux` mention, Codex does not load Crux automatically, even when the request concerns a paper, research plan, or decision.
 
 Choose the interaction goal deliberately:
 

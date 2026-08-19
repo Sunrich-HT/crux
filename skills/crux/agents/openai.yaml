@@ -7,4 +7,4 @@ interface:
   default_prompt: "Use $crux to find the decisive crux, test the evidence, and choose the right next move."
 
 policy:
-  allow_implicit_invocation: true
+  allow_implicit_invocation: false

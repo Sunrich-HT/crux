@@ -14,7 +14,7 @@ npx skills add Sunrich-HT/crux --global --agent codex --skill crux --yes --copy
 $crux
 ```
 
-正确语法是 `$crux`，不是 `/crux`。显式调用后不需要再写“请使用这个 Skill”。当前配置允许自动触发，但对首次使用、评测和重要任务，建议始终显式调用。
+正确语法是 `$crux`，不是 `/crux`。显式调用后不需要再写“请使用这个 Skill”。Crux 只允许显式调用；没有 `$crux` mention 的对话不会加载它。
 
 ## 2. 论文精读：保留关键推理
 

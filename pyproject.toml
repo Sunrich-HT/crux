@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "crux-supervisor"
-version = "0.4.1"
+version = "0.4.2"
 description = "A deterministic disclosure-policy core for evidence-governed thinking agents"
 readme = "README.md"
 requires-python = ">=3.11"

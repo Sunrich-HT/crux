@@ -41,7 +41,7 @@ Crux 把“这一轮最多帮到什么程度”做成明确契约：先找到会
 npx skills add Sunrich-HT/crux --global --agent codex --skill crux --yes --copy
 ```
 
-安装后新建一个 Codex 任务。Skill 使用 `$` mention，不是斜杠命令：在输入框键入 `$` 后选择 `crux`，或者直接以 `$crux` 开头。
+安装后新建一个 Codex 任务。Crux 只允许显式调用，安装不会改变普通对话。需要使用时，在输入框键入 `$` 后选择 `crux`，或者直接以 `$crux` 开头。
 
 ## 安装后怎么使用
 
@@ -56,7 +56,7 @@ $crux
 我还没想通的是：……
 ```
 
-`$crux` 已经表示“显式调用这个 Skill”，不需要再写“请使用这个 Skill”。`/crux` 不是 Skill 调用语法。匹配的任务也可能自动触发 Crux，但显式调用更容易确认和复现。
+`$crux` 已经表示“显式调用这个 Skill”，不需要再写“请使用这个 Skill”。`/crux` 不是 Skill 调用语法。没有 `$crux` mention 时，即使问题涉及论文、科研或决策，Codex 也不会自动加载 Crux。
 
 根据目标选择模式：
 
